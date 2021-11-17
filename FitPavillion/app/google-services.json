@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178546014021",
+    "project_id": "fitpavillion",
+    "storage_bucket": "fitpavillion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178546014021:android:94a0ce77a1df487260702c",
+        "android_client_info": {
+          "package_name": "com.example.fitpavillion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178546014021-b6nfg6ehs378rijb4s22gb698ttgbrlk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAplUC8QfEOjjx3ZCGV_juIJt6eeeQHW4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178546014021-b6nfg6ehs378rijb4s22gb698ttgbrlk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_workout"
+        android:orderInCategory="100"
+        android:title="WorkOut Plan"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_food"
+        android:orderInCategory="100"
+        android:title="Food"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/add_new"
+        android:orderInCategory="100"
+        android:title="Add"
+        app:showAsAction="never" />
+</menu>

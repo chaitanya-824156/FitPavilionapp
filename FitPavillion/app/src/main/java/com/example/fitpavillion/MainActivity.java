@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fitpavillion.models.User;
+import com.example.fitpavillion.ui.AdminHomeActivity;
 import com.example.fitpavillion.ui.HomeActivity;
 import com.example.fitpavillion.ui.LoginActivity;
 import com.example.fitpavillion.ui.ProfileActivity;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private String mCustomToken;
     private SharedPref sharedPref;
     private FirebaseAuth.AuthStateListener fireAuthListener;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,26 @@ public class MainActivity extends AppCompatActivity {
         return new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser == null) {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 } else {
                     if (sharedPref.getProfileComplete()) {
-                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                        user = sharedPref.getUser();
+                        switch (user.getProfileType() != null ? user.getProfileType() : "") {
+                            case "ADMIN":
+                                startActivity(new Intent(MainActivity.this, AdminHomeActivity.class));
+                                break;
+                            case "USER":
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                break;
+                            case "TRAINER":
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                break;
+                            default:
+                                startActivity(new Intent(MainActivity.this, AdminHomeActivity.class));
+                                break;
+                        }
                     } else {
                         startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                     }

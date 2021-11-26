@@ -16,4 +16,9 @@
         android:orderInCategory="100"
         android:title="Add"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/admin_logout"
+        android:orderInCategory="100"
+        android:title="Log Out"
+        app:showAsAction="never" />
 </menu>

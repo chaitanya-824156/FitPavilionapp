@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FitPavillion</string>
+    <string name="user_logged_in">User Logged In!</string>
 </resources>

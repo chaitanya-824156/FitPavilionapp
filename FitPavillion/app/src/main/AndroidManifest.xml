@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitPavillion">
-        <activity android:name=".ui.WorkoutFormActivity"></activity>
+        <activity android:name=".ui.FoodFormActivity" />
+        <activity android:name=".ui.WorkoutFormActivity" />
         <activity android:name=".ui.AdminHomeActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.HomeActivity" />

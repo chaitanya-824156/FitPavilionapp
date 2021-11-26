@@ -43,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("profile");
 
-
         name = findViewById(R.id.p_name);
         email = findViewById(R.id.p_email);
         phone = findViewById(R.id.p_phone);
@@ -56,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void isUserExists() {
         profile = sharedPref.getUser();
-
         dbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -64,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    if(task.getResult().getValue(User.class)!=null)
                     profile = task.getResult().getValue(User.class);
                     updateFields(profile);
                 }
@@ -78,8 +75,8 @@ public class ProfileActivity extends AppCompatActivity {
         name.setText(profile.getName());
         email.setText(profile.getEmail());
         phone.setText(profile.getPhone());
-        height.setText((int) profile.getHeight());
-        weight.setText((int) profile.getWeight());
+        height.setText(String.valueOf(profile.getHeight()));
+        weight.setText(String.valueOf(profile.getWeight()));
     }
 
     private boolean validateFielda() {

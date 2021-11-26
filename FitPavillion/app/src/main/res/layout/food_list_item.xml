@@ -11,69 +11,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="2dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_workout_name"
+                android:id="@+id/item_food_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:padding="4dp"
-                android:text="workout name"
+                android:text="food name"
                 android:textAppearance="?android:textAppearance" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/item_workout_reps_count"
+                    android:id="@+id/item_food_protien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:padding="4dp"
-                    android:text="workout reps"
+                    android:text="protiem"
                     android:textAppearance="?android:textAppearance" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="4dp"
-                    android:text="-"
-                    android:textAppearance="?android:textAppearance" />
 
                 <TextView
-                    android:id="@+id/item_workout_reps_duration"
+                    android:id="@+id/item_food_fat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:padding="4dp"
-                    android:text="workout durations"
+                    android:text="Fat"
                     android:textAppearance="?android:textAppearance" />
             </LinearLayout>
 
         </LinearLayout>
 
 
-        <ImageView
-            android:id="@+id/item_workout_image"
+        <TextView
+            android:id="@+id/item_food_total_cal"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Total Cal"
+            android:textStyle="bold"
+            app:layout_constraintDimensionRatio="H,1:1" />
 
     </LinearLayout>
 

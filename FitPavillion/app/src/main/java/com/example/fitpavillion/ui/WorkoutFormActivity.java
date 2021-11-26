@@ -251,17 +251,6 @@ public class WorkoutFormActivity extends AppCompatActivity {
             fileUri = data.getData();
             if (fileUri != null) {
                 try {
-//                    Uri selectedImage = data.getData();
-//                    String[] filePath = {MediaStore.Images.Media.DATA};
-//                    Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
-//                    c.moveToFirst();
-//                    int columnIndex = c.getColumnIndex(filePath[0]);
-//                    String picturePath = c.getString(columnIndex);
-//                    c.close();
-////                    Bitmap bitmap = (BitmapFactory.decodeFile(picturePath));
-////                    imageView.setImageBitmap(bitmap);
-//                    Log.e(TAG, "path of image from gallery......******************........." + picturePath + "");
-
                     Glide.with(getApplicationContext())
                             .asBitmap().load(fileUri)
                             .into(new SimpleTarget<Bitmap>() {
@@ -291,6 +280,7 @@ public class WorkoutFormActivity extends AppCompatActivity {
 //        https://www.geeksforgeeks.org/android-how-to-upload-an-image-on-firebase-storage/
         if (fileUri != null) {
             ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
             StorageReference ref = storageRef.child("images/" + UUID.randomUUID().toString());
@@ -328,6 +318,10 @@ public class WorkoutFormActivity extends AppCompatActivity {
     }
 
     private void addOrModifyWorkoutPlans() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
         if (!validateFields()) {
             Toast.makeText(this, "Please provide valid inputs", Toast.LENGTH_SHORT).show();
             return;
@@ -352,19 +346,20 @@ public class WorkoutFormActivity extends AppCompatActivity {
                     }
                 });
             }
+        } else {
+            updateToFirebase(null);
         }
 
     }
 
     private void updateToFirebase(Uri uri) {
-        if (uri == null) return;
         if (workOutPlan == null) workOutPlan = new WorkOutPlan();
         workOutPlan.setActive(checked);
         workOutPlan.setName(name.getText().toString().trim());
         workOutPlan.setCount(Integer.parseInt(count.getText().toString()));
         workOutPlan.setReps(Integer.parseInt(reps.getText().toString()));
         workOutPlan.setDurationInMins(Integer.parseInt(duration.getText().toString()));
-        workOutPlan.setImageUrl(uri.toString());
+        if (uri != null) workOutPlan.setImageUrl(uri.toString());
         List<String> list = new ArrayList<>();
         for (int i : daysList) list.add(daysArray[i]);
         workOutPlan.setDays(list);
@@ -375,8 +370,6 @@ public class WorkoutFormActivity extends AppCompatActivity {
             workOutPlan.setId(uid);
         } else uid = workOutPlan.getId();
 
-        Gson gson = new Gson();
-        String json = gson.toJson(workOutPlan);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("workoutPlans").child(uid)
                 .setValue(workOutPlan, new DatabaseReference.CompletionListener() {
@@ -397,7 +390,7 @@ public class WorkoutFormActivity extends AppCompatActivity {
     }
 
     private void deleteFireStorageFile(String imgUrl, Callback<Boolean> call) {
-        StorageReference desertRef = storageRef.child(imgUrl);
+        StorageReference desertRef = FirebaseStorage.getInstance().getReferenceFromUrl(imgUrl);
         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -416,7 +409,7 @@ public class WorkoutFormActivity extends AppCompatActivity {
         if (String.valueOf(reps.getText()).trim().equals("")) return false;
         if (String.valueOf(count.getText()).trim().equals("")) return false;
         if (String.valueOf(duration.getText()).trim().equals("")) return false;
-        if (workOutPlan != null && (workOutPlan.getImageUrl() == null || fileUri == null))
+        if (workOutPlan != null && (workOutPlan.getImageUrl() == null && fileUri == null))
             return false;
         if (daysList.size() == 0) return false;
         return true;

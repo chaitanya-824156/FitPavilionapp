@@ -26,8 +26,7 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,9 +43,32 @@
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white" />
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/login_rad_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/p_rad_type_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:text="USER"
+                android:textSize="20dp" />
+
+            <RadioButton
+                android:id="@+id/p_rad_type_trainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="TRAINER"
+                android:textSize="20dp" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/login_button"

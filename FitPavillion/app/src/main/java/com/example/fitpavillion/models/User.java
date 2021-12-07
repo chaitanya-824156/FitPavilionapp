@@ -5,9 +5,15 @@ public class User {
     private String name;
     private String email;
     private String phone;
-    private double height;
-    private double weight;
+    private String gender;
     private String profileType;
+    private String address;
+    private String area;
+    private String city;
+    private int pincode;
+    private double lat;
+    private double lng;
+    private String fcmToken;
 
     public User() {
     }
@@ -18,6 +24,14 @@ public class User {
 
     public void setProfileType(String profileType) {
         this.profileType = profileType;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getUid() {
@@ -52,19 +66,59 @@ public class User {
         this.phone = phone;
     }
 
-    public double getHeight() {
-        return height;
+    public String getAddress() {
+        return address;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public double getWeight() {
-        return weight;
+    public String getArea() {
+        return area;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(int pincode) {
+        this.pincode = pincode;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

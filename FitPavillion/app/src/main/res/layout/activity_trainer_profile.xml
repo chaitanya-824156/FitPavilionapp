@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ProfileActivity">
+    tools:context=".ui.TrainerProfileActivity">
 
     <ScrollView
-        android:id="@+id/p_scrollview"
+        android:id="@+id/trainer_scrollview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentStart="true"
         android:layout_weight="3">
 
 
@@ -26,7 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/p_name"
+                    android:id="@+id/trainer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/p_email"
+                    android:id="@+id/trainer_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/p_phone"
+                    android:id="@+id/trainer_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -72,15 +71,83 @@
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/trainer_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Address"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="150"
+                    android:maxLines="2"
+                    android:singleLine="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/trainer_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Area"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/trainer_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="City"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/trainer_pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Pincode"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <RadioGroup
-                android:id="@+id/p_rad_group"
+                android:id="@+id/trainer_rad_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/p_rad_type_male"
+                    android:id="@+id/trainer_rad_type_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -89,7 +156,7 @@
                     android:textSize="20dp" />
 
                 <RadioButton
-                    android:id="@+id/p_rad_type_female"
+                    android:id="@+id/trainer_rad_type_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -97,16 +164,27 @@
                     android:textSize="20dp" />
             </RadioGroup>
 
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/trainer_profile_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_signup"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trainer_btn_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="20dip"
         android:background="@null"
+        android:imeOptions="actionSend"
         android:onClick="updateUser"
         android:text="Update Profile"
         android:textColor="@color/white"

@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../FitPavillion/app/src/main/res/layout/activity_admin_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_admin_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_workout_form.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.165" />
       </map>
     </option>
   </component>

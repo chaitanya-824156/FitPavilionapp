@@ -11,17 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="20dp"
-        android:text="@string/user_logged_in" />
+        android:text="Main" />
 
-    <Button
-        android:id="@+id/btn_signout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@null"
-        android:onClick="firebaseLogout"
-        android:text="Logout"
-        android:textColor="@color/white"
-        android:textSize="15dp" />
 
 </LinearLayout>

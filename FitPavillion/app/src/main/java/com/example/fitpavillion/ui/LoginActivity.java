@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.fitpavillion.R;
 import com.example.fitpavillion.constants.CONSTANTS;
 import com.example.fitpavillion.utils.Callback;
 import com.example.fitpavillion.utils.LoginAuth;
+import com.example.fitpavillion.utils.SharedPref;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private AppCompatEditText userName, password;
     private FirebaseAuth mAuth;
+    private RadioGroup typeGroup;
+    private String type;
+    private SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginAuth = LoginAuth.getInstance();
         mAuth = loginAuth.getAuth();
+        sharedPref = SharedPref.getInstance(this);
 
         userName = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        typeGroup = findViewById(R.id.login_rad_group);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -52,10 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-
     public boolean validateFields() {
-        if (userName.getText().toString().trim() == "") return false;
-        if (password.getText().toString().trim() == "" || userName.getText().toString().trim().length() < 6)
+        if (userName.getText().toString().trim().equals("")) return false;
+        if (password.getText().toString().trim().equals("") || userName.getText().toString().trim().length() < 6)
             return false;
         return true;
     }
@@ -66,13 +73,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void firebaseLogin(View view) {
-        if (validateFields())
+        if (validateFields()) {
             loginAuth.signIn(userName.getText().toString().trim(), password.getText().toString().trim(), this::updateUI);
+        }
     }
 
     public void firebaseRegister(View view) {
-        if (validateFields())
+        if (validateFields()) {
             loginAuth.createAccount(userName.getText().toString().trim(), password.getText().toString().trim(), this::updateUI);
+        }
+    }
+
+    private void getProfileType() {
+        int id = typeGroup.getCheckedRadioButtonId();
+        RadioButton radioButton = (RadioButton) findViewById(id);
+        type = radioButton.getText().toString();
+        sharedPref.setProfileType(type);
     }
 
     @Override
@@ -114,8 +130,12 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            getProfileType();
+            startActivity(i);
             finish();
+        } else {
+            sharedPref.setProfileType(null);
         }
     }
 

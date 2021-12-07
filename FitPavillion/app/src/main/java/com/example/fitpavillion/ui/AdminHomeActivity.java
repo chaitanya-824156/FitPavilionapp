@@ -20,6 +20,7 @@ import com.example.fitpavillion.models.FoodItem;
 import com.example.fitpavillion.models.WorkOutPlan;
 import com.example.fitpavillion.utils.Callback;
 import com.example.fitpavillion.utils.LoginAuth;
+import com.example.fitpavillion.utils.SharedPref;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -137,7 +138,7 @@ public class AdminHomeActivity extends AppCompatActivity implements Callback<Wor
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.admin_main_menu, menu);
         menu.findItem(R.id.menu_workout).setVisible(!workout);
         menu.findItem(R.id.menu_food).setVisible(workout);
         return true;
@@ -170,7 +171,7 @@ public class AdminHomeActivity extends AppCompatActivity implements Callback<Wor
                 }
                 break;
             case R.id.admin_logout:
-                new LoginAuth().signOut();
+                new LoginAuth().signOut(this);
                 Intent intent = new Intent(AdminHomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

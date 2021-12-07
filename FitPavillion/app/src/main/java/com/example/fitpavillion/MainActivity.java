@@ -1,19 +1,23 @@
 package com.example.fitpavillion;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fitpavillion.constants.CONSTANTS;
 import com.example.fitpavillion.models.User;
 import com.example.fitpavillion.ui.AdminHomeActivity;
 import com.example.fitpavillion.ui.HomeActivity;
 import com.example.fitpavillion.ui.LoginActivity;
 import com.example.fitpavillion.ui.ProfileActivity;
+import com.example.fitpavillion.ui.TrainerHomeActivity;
+import com.example.fitpavillion.ui.TrainerProfileActivity;
 import com.example.fitpavillion.utils.LoginAuth;
 import com.example.fitpavillion.utils.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener fireAuthListener;
     private User user;
 
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
         mAuth = new LoginAuth().getAuth();
         sharedPref = SharedPref.getInstance(this);
         fireAuthListener = authStateListener();
+        createGeneralNotificationChannel();
+    }
+
+    private void createGeneralNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = CONSTANTS.DEFAULT_NOTIFICATION_CHANNEL_ID;
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    CONSTANTS.NOTIFICATION_CHANNEL_GENERAL, NotificationManager.IMPORTANCE_HIGH));
+        }
     }
 
     private FirebaseAuth.AuthStateListener authStateListener() {
@@ -55,14 +74,26 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                 break;
                             case "TRAINER":
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                startActivity(new Intent(MainActivity.this, TrainerHomeActivity.class));
                                 break;
                             default:
-                                startActivity(new Intent(MainActivity.this, AdminHomeActivity.class));
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                                 break;
                         }
                     } else {
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        Intent prevIntent = getIntent();
+                        Intent i;
+                        String type = sharedPref.getProfileType();
+                        if (type != null && type.equals("TRAINER")) {
+                            i = new Intent(MainActivity.this, TrainerProfileActivity.class);
+                        } else {
+                            i = new Intent(MainActivity.this, ProfileActivity.class);
+                        }
+                        if (firebaseUser.getEmail() != null)
+                            i.putExtra("email", firebaseUser.getEmail());
+                        i.putExtra("profileType", type);
+
+                        startActivity(i);
                     }
                 }
                 finish();

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.UserWorkoutItemViewActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/wo_u_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:hint="Select Days"
+                android:padding="8dp"
+                android:textAppearance="?textAppearanceBody1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wo_u_reps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:drawablePadding="8dp"
+                android:hint="Select Days"
+                android:padding="8dp"
+                android:textAppearance="?textAppearanceBody1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wo_u_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:drawablePadding="8dp"
+                android:hint="Select Days"
+                android:padding="8dp"
+                android:textAppearance="?textAppearanceBody1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wo_u_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+
+                android:drawablePadding="8dp"
+                android:hint="Select Days"
+                android:padding="8dp"
+                android:textAppearance="?textAppearanceBody1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wo_u_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+
+                android:drawablePadding="8dp"
+                android:hint="Select Days"
+                android:padding="8dp"
+                android:textAppearance="?textAppearanceBody1" />
+
+
+            <ImageView
+                android:id="@+id/wo_u_image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

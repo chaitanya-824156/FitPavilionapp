@@ -103,8 +103,7 @@ public class LoginAuth implements Executor {
                 });
     }
 
-    public void signOut(Context context) {
-        SharedPref.getInstance(context).clearData();
+    public void signOut() {
         mAuth.signOut();
     }
 

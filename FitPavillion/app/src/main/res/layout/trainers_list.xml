@@ -27,7 +27,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="4dp"
                 android:text="Name: "
-                android:textAppearance="?android:textAppearance" />
+                android:textAppearance="?android:textAppearance"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/item_trainers_name"
@@ -50,7 +51,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="4dp"
                 android:text="Locality : "
-                android:textAppearance="?android:textAppearance" />
+                android:textAppearance="?android:textAppearance"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/item_trainers_area"
@@ -75,7 +77,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="4dp"
                 android:text="City : "
-                android:textAppearance="?android:textAppearance" />
+                android:textAppearance="?android:textAppearance"
+                android:textStyle="bold" />
 
 
             <TextView
@@ -100,7 +103,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="4dp"
                 android:text="Pincode : "
-                android:textAppearance="?android:textAppearance" />
+                android:textAppearance="?android:textAppearance"
+                android:textStyle="bold" />
 
 
             <TextView

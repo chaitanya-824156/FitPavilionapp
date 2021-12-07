@@ -118,15 +118,18 @@ public class TrainerHomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.trainer_logout:
-                new LoginAuth().signOut(this);
+                new LoginAuth().signOut();
+                SharedPref.getInstance(this).clearData();
                 Intent intent = new Intent(TrainerHomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                break;
             case R.id.trainer_profile_page:
                 Intent i = new Intent(TrainerHomeActivity.this, TrainerProfileActivity.class);
                 i.putExtra("edit", true);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+                break;
             default:
                 break;
         }

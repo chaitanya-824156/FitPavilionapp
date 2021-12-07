@@ -85,7 +85,7 @@ public class AdminHomeActivity extends AppCompatActivity implements Callback<Wor
     protected void onPause() {
         super.onPause();
         woQuery.removeEventListener(WO_listener());
-        fQuery.removeEventListener(WO_listener());
+        fQuery.removeEventListener(FD_listener());
     }
 
     @Override
@@ -171,10 +171,12 @@ public class AdminHomeActivity extends AppCompatActivity implements Callback<Wor
                 }
                 break;
             case R.id.admin_logout:
-                new LoginAuth().signOut(this);
+                new LoginAuth().signOut();
+                SharedPref.getInstance(this).clearData();
                 Intent intent = new Intent(AdminHomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                break;
             default:
                 break;
         }

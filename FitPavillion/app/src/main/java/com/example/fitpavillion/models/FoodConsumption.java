@@ -6,10 +6,11 @@ import java.util.Date;
 
 public class FoodConsumption {
     private String id;
+    private String userId;
     private String name;
     private double calorie;
     private double quantity;
-    private double totalQuantity;
+    private double totalCalorie;
     private long date;
 
     public FoodConsumption() {
@@ -47,12 +48,12 @@ public class FoodConsumption {
         this.quantity = quantity;
     }
 
-    public double getTotalQuantity() {
-        return totalQuantity;
+    public double getTotalCalorie() {
+        return totalCalorie;
     }
 
-    public void setTotalQuantity(double totalQuantity) {
-        this.totalQuantity = totalQuantity;
+    public void setTotalCalorie(double totalCalorie) {
+        this.totalCalorie = totalCalorie;
     }
 
     public long getDate() {
@@ -61,6 +62,14 @@ public class FoodConsumption {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getDateString() {

@@ -116,7 +116,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setClickListener(ConversationCallback());
         recyclerView.setAdapter(adapter);
         getChatsList();
-        getConversationList();
+//        getConversationList();
     }
 
     private void getChatsList() {

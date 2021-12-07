@@ -1,7 +1,12 @@
 package com.example.fitpavillion.ui;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.fitpavillion.MainActivity;
 import com.example.fitpavillion.R;
@@ -40,6 +47,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class TrainerProfileActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final String TAG = "TrainerProfileActivity";
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private User profile;
@@ -142,9 +150,8 @@ public class TrainerProfileActivity extends AppCompatActivity implements OnMapRe
                             if (result != null) {
                                 if (profile != null)
                                     profile.setFcmToken(result);
-                                uploadProfile(profile);
                                 progressDialog.dismiss();
-
+                                uploadProfile(profile);
                             } else {
                                 progressDialog.dismiss();
                                 updateAndRedirect(profile);
@@ -225,6 +232,7 @@ public class TrainerProfileActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void uploadProfile(User profile) {
+        if (profile == null) return;
         dbRef.setValue(profile, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -255,6 +263,13 @@ public class TrainerProfileActivity extends AppCompatActivity implements OnMapRe
         mMap = googleMap;
         mMap.setOnMapClickListener(this);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkLocationPermission();
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
         if (profile != null && profile.getLat() != 0 && profile.getLng() != 0) {
             latLng = new LatLng(profile.getLat(), profile.getLng());
             addMarker(latLng, profile.getName(), profile.getAddress());
@@ -328,4 +343,41 @@ public class TrainerProfileActivity extends AppCompatActivity implements OnMapRe
         mapView.onLowMemory();
     }
 
+    public void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("This app requires Location Permission.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @SuppressLint("MissingPermission")
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(TrainerProfileActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+                                if (mMap != null) mMap.setMyLocationEnabled(true);
+
+                            }
+                        }).create().show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+        } else {
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    if (mMap != null) mMap.setMyLocationEnabled(true);
+                }
+
+            }
+        }
+    }
 }

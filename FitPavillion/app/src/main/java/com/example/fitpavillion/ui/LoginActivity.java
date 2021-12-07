@@ -62,9 +62,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateFields() {
         if (userName.getText().toString().trim().equals("")) return false;
-        if (password.getText().toString().trim().equals("") || userName.getText().toString().trim().length() < 6)
-            return false;
-        return true;
+        if (password.getText().toString().trim().equals("")) return false;
+        Log.d(TAG, "validateFields: " + password.getText().toString().trim().length());
+        return (password.getText().toString().trim().length() >= 6);
+
     }
 
     public void signInWithGoogle(View view) {
@@ -75,13 +76,13 @@ public class LoginActivity extends AppCompatActivity {
     public void firebaseLogin(View view) {
         if (validateFields()) {
             loginAuth.signIn(userName.getText().toString().trim(), password.getText().toString().trim(), this::updateUI);
-        }
+        } else Toast.makeText(this, "Please insert valid Inputs!", Toast.LENGTH_SHORT).show();
     }
 
     public void firebaseRegister(View view) {
         if (validateFields()) {
             loginAuth.createAccount(userName.getText().toString().trim(), password.getText().toString().trim(), this::updateUI);
-        }
+        } else Toast.makeText(this, "Please insert valid Inputs!", Toast.LENGTH_SHORT).show();
     }
 
     private void getProfileType() {

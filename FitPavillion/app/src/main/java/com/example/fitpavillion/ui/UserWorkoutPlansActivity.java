@@ -42,6 +42,12 @@ public class UserWorkoutPlansActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         ref.removeEventListener(WO_listener());
@@ -51,12 +57,6 @@ public class UserWorkoutPlansActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getWorkoutPlans();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 
 

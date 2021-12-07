@@ -50,15 +50,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent i;
         switch (item.getItemId()) {
             case R.id.user_logout:
-                new LoginAuth().signOut(this);
+                new LoginAuth().signOut();
+                SharedPref.getInstance(this).clearData();
                 i = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
+                break;
             case R.id.user_profile_page:
                 i = new Intent(HomeActivity.this, ProfileActivity.class);
                 i.putExtra("edit", true);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+                break;
             default:
                 break;
         }
@@ -86,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.btn_consumption:
-                i = new Intent(HomeActivity.this, UserMessagesActivity.class);
+                i = new Intent(HomeActivity.this, FoodDairyActivity.class);
                 startActivity(i);
                 break;
             default:

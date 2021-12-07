@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                     } else {
-                        Intent prevIntent = getIntent();
                         Intent i;
                         String type = sharedPref.getProfileType();
                         if (type != null && type.equals("TRAINER")) {

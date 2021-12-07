@@ -32,27 +32,26 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
+    private final FirebaseAuth auth = LoginAuth.getInstance().getAuth();
+    private final FirebaseUser user = auth.getCurrentUser();
+    private final String[] type = {"ADMIN", "USER", "TRAINER"};
     private User profile;
     private DatabaseReference dbRef;
     private AppCompatEditText name, email, phone;
     private RadioGroup genGroup;
     private SharedPref sharedPref;
-    private FirebaseAuth auth;
-    private FirebaseUser user;
     private String profileType;
-    private String[] type = {"ADMIN", "USER", "TRAINER"};
     private ProgressDialog progressDialog;
     private boolean edit;
     private String fcmToken;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        sharedPref = SharedPref.getInstance(this);
-        auth = LoginAuth.getInstance().getAuth();
-        user = auth.getCurrentUser();
-        dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("profile");
+
+
         progressDialog = new ProgressDialog(this);
 
         name = findViewById(R.id.p_name);
@@ -60,13 +59,16 @@ public class ProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.p_phone);
         genGroup = findViewById(R.id.p_rad_group);
 
-        isUserExists();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        sharedPref = SharedPref.getInstance(this);
+        profile = sharedPref.getUser();
         getExtraFromIntent();
+        dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(user != null ? user.getUid() : userId).child("profile");
+        isUserExists();
     }
 
     private void getExtraFromIntent() {
@@ -76,6 +78,9 @@ public class ProfileActivity extends AppCompatActivity {
             if (eExtra != null) email.setText(eExtra);
             profileType = intent.getStringExtra("profileType");
             edit = intent.getBooleanExtra("edit", false);
+            if (profile != null) userId = profile.getUid();
+            else if (user != null) userId = user.getUid();
+            else userId = "dummyId";
 
             if (edit && getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,7 +101,6 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        profile = sharedPref.getUser();
         dbRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -174,6 +178,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void uploadProfile(User profile) {
+        if (profile == null) return;
         dbRef.setValue(profile, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
